@@ -4,13 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
+import com.amplifyframework.core.Amplify;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity {
@@ -25,6 +31,17 @@ public class LoginActivity extends AppCompatActivity {
 
         viewInitializations();
 
+        try {
+            Amplify.addPlugin(new AWSCognitoAuthPlugin());
+            Amplify.configure(getApplicationContext());
+            Log.i("MyAmplifyApp", "Initialized Amplify");
+            Amplify.Auth.fetchAuthSession(
+                    result -> Log.i("AmplifyQuickstart", result.toString()),
+                    error -> Log.e("AmplifyQuickstart", error.toString())
+            );
+        } catch (AmplifyException error) {
+            Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
+        }
 
     }
 
@@ -76,11 +93,37 @@ public class LoginActivity extends AppCompatActivity {
             String email = etEmail.getText().toString();
             String password = etPassword.getText().toString();
 
-            Toast.makeText(this,"Login Success",Toast.LENGTH_SHORT).show();
+
             // TODO call your API
+            try {
+                Amplify.Auth.signIn(
+                        email,
+                        password,
+                        result -> {
+                            Log.i("AuthQuickstart", result.isSignInComplete() ? "Sign in succeeded" : "Sign in not complete");
+                            if (result.isSignInComplete()){
+                                Intent intent = new Intent(this, MainActivity.class);
+                                startActivity(intent);
+                            }
+                        },
+                        error -> {
+                            Log.e("AuthQuickstart", error.toString());
+                            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast toast = Toast.makeText(LoginActivity.this, error.getMessage(), Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+                            });
+                        }
+                );
+            } catch (Exception e) {
+                Toast.makeText(this,"Something went wrong",Toast.LENGTH_SHORT).show();
+
+            }
+
             // Check this tutorial to call server api through Google Volley Library https://handyopinion.com
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+
         }
     }
 

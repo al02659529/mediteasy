@@ -8,7 +8,7 @@
 
 
     <Button
-        android:id="@+id/startBtn"
+        android:id="@+id/button_start_pause"
         android:layout_width="130dp"
         android:layout_height="58dp"
         android:width="3dp"
@@ -19,18 +19,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.901"
-       />
+        app:layout_constraintVertical_bias="0.901" />
+
+    <Button
+        android:id="@+id/button_reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/button_start_pause"
+        android:text="reset"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.885"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.903"
+        tools:visibility="visible" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="264dp"
         android:layout_height="257dp"
-        app:layout_constraintBottom_toTopOf="@+id/startBtn"
+        app:layout_constraintBottom_toTopOf="@+id/button_start_pause"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.888"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_meditation" />
 
     <LinearLayout
@@ -45,23 +60,23 @@
         app:layout_constraintVertical_bias="0.25">
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/down_arrow"
             android:layout_width="33dp"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_down_arrow" />
 
         <TextView
-            android:id="@+id/counter"
+            android:id="@+id/text_view_countdown"
             android:layout_width="275dp"
             android:layout_height="82dp"
             android:ems="10"
             android:text="@string/counter"
             android:textAlignment="center"
             android:textColor="#FFFDFD"
-            android:textSize="55sp" />
+            android:textSize="60sp" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/upArrow"
             android:layout_width="28dp"
             android:layout_height="match_parent"
             android:rotation="180"

@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
         DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
                 createItemFor(POS_CLOSE),
                 createItemFor(POS_DASHBOARD).setChecked(true),
-                createItemFor(POS_MY_PROFILE),
-                createItemFor(POS_SETTINGS),
-                createItemFor(POS_ABOUT_US),
+//                createItemFor(POS_MY_PROFILE),
+//                createItemFor(POS_SETTINGS),
+//                createItemFor(POS_ABOUT_US),
                 new SpaceItem(260),
                 createItemFor(POS_LOGOUT)
         ));
